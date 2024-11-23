@@ -1,0 +1,46 @@
+﻿# User-specific files
+.idea/
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]ebug-x64/
+[Dd]ebug-x86/
+[Dd]ebug-netcoreapp3.1/
+[Dd]ebug-net5.0/
+[Dd]ebug-net6.0/
+[Dd]ebug-net7.0/
+[Dd]Debug-net8.0/
+[Dd]ebug-net9.0/
+bin/
+obj/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework Core
+# SQLite databases
+*.db
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# User secrets
+appsettings.json
+appsettings.Development.json
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
