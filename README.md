@@ -37,24 +37,30 @@ git clone https://github.com/pietikainen/kotkangrilli_backend_v2.git
 ---
 
 ## Projektin rakenne
-
-kotkangrilli_backend_v2/
-├── Controllers/       # Sovelluslogiikka
-│   ├── UserController.cs
-│   └── GameController.cs
-├── Configurations/    # Entiteettien konfiguraatiot
-│   ├── UserConfiguration.cs
-│   └── GameConfiguration.cs
-├── Data/              # Tietokantayhteys
-│   └── AppDbContext.cs
-├── Models/            # Tietomallit
-│   ├── User.cs
+```
+kotkangrilli_backend_v2/  
+├── Properties/             # Projektin ominaisuudet  
+│   └── appsettings.Development.json
+│   └── launchSettings.json
+├── Controllers/            # Sovelluslogiikka  
+│   ├── UserController.cs  
+│   └── GameController.cs  
+│   └── ...  
+├── Configurations/         # Entiteettien konfiguraatiot  
+│   ├── UserConfiguration.cs  
+│   └── GameConfiguration.cs  
+│   └── ...  
+├── Data/                   # Tietokantayhteys  
+│   └── AppDbContext.cs  
+│   └── init.sql            # Tietokannan alustus
+│   └── seedData.sql        # Tietokannan esimerkkidata  
+├── Models/                 # Entiteetit  
+│   ├── User.cs  
 │   └── Game.cs
-├── Migrations/        # Tietokantamigraatiot
-├── Properties/        # Projektin ominaisuudet
-├── appsettings.json   # Konfiguraatiotiedosto
-├── Program.cs         # Sovelluksen pääsisäänkäynti
-└── README.md          # Dokumentaatio
+│   └── ...  
+├── Program.cs              # Sovelluksen pääsisäänkäynti  
+└── README.md               # Dokumentaatio  
+```
 
 ### Teknologiat:
 
