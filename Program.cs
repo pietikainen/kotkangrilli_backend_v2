@@ -1,24 +1,19 @@
 using AspNet.Security.OAuth.Discord;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 using kotkangrilli.Data;
-
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Configuration files
-// builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+// builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);s
 builder.Configuration.AddJsonFile("Properties/appsettings.Development.json", optional: true, reloadOnChange: true);
 
 // Get the configuration
-var discordClientId = builder.Configuration?["Discord:ClientId"];
-var discordClientSecret = builder.Configuration?["Discord:ClientSecret"];
-var discordRedirectUri = builder.Configuration?["Discord:RedirectUri"];
-
-// Print for giggles
-Console.WriteLine("Discord Client ID: " + discordClientId);
-Console.WriteLine("Discord Client Secret: " + discordClientSecret);
-Console.WriteLine("Discord Redirect URI: " + discordRedirectUri);
+var discordClientId = builder.Configuration["discord:CLIENT_ID"];
+var discordClientSecret = builder.Configuration["discord:CLIENT_SECRET"];
+var discordRedirectUri = builder.Configuration["discord:CALLBACK_URL"];
 
 // Add Database
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -47,7 +42,37 @@ builder.Services.AddLogging(builder =>
     builder.AddConsole();
 });
 
+// Add Development CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCors", policy =>
+        policy.AllowAnyOrigin()  // ✅ Allows all origins (Only for Dev)
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+// Add Authentication
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = DiscordAuthenticationDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddDiscord(options =>
+    {
+        options.ClientId = discordClientId;
+        options.ClientSecret = discordClientSecret;
+        // options.CallbackPath = new PathString(discordRedirectUri);
+        options.CallbackPath = discordRedirectUri;
+        options.Scope.Add("identify");
+        options.Scope.Add("email");
+        options.Scope.Add("guilds.members.read");
+        options.SaveTokens = true;
+    });
+
 var app = builder.Build();
+
 
 // Use development Swagger
 if (app.Environment.IsDevelopment())
@@ -60,9 +85,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+
 // Routing
 app.UseRouting();
 
+app.UseCors("DevCors");
 app.MapControllers();
 
 app.Run();
