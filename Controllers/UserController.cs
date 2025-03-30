@@ -16,18 +16,21 @@ public class UserController : ControllerBase
         _context = context;
     }
 
+    // Get all users
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
         return Ok(_context.Users);
     }
 
+    // Get user by user_id
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser(int id)
     {
         return Ok(_context.Set<User>().Find(id));
     }
 
+    // Create new user
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] User user)
     {
@@ -41,6 +44,7 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
     }
 
+    // Update user
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUser([FromBody] User user)
     {
@@ -56,6 +60,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+    // Delete user
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id)
     {
@@ -83,4 +88,26 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    
+    // Get user role by user_id
+    [HttpGet("role/{id}")]
+    public async Task<IActionResult> GetUserRole(int id)
+    {
+        try
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(user.Level);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
+    
 }
