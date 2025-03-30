@@ -21,8 +21,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 builder.Property(u => u.Avatar).HasColumnName("avatar");
                 builder.Property(u => u.Email).HasColumnName("email").IsRequired();
                 builder.Property(u => u.Phone).HasColumnName("phone");
-                builder.Property(u => u.Bank).HasColumnName("bank");
-                builder.Property(u => u.Level).HasColumnName("level").IsRequired()
+                builder.Property(u => u.Iban).HasColumnName("iban");
+                builder.Property(u => u.Level).HasColumnName("user_level_id").IsRequired()
                         .HasConversion<int>();
                 builder.Property(u => u.CreatedAt).HasColumnName("created_at");
                 builder.Property(u => u.UpdatedAt).HasColumnName("updated_at");

@@ -2,11 +2,12 @@
 -- Seed data for database testing
 
 -- Insert seed data for userroles
-INSERT INTO user_level (level) VALUES
+INSERT INTO user_level (role) VALUES
+                                   ('disabled'),
                                    ('user'),
-                                   ('moderator'),
-                                   ('admin')
-    ON CONFLICT (level) DO NOTHING;
+                                   ('organizer'),
+                                    ('admin')
+    ON CONFLICT (role) DO NOTHING;
 -- Insert seed data for users
 
 INSERT INTO users (snowflake, username, nickname, avatar, email, phone, iban, user_level_id)

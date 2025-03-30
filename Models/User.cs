@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace kotkangrilli.Models;
 
@@ -6,7 +8,7 @@ public class User
 {
     public int Id { get; set; }
     [Required]
-    public string Snowflake { get; set; }
+    public Int64 Snowflake { get; set; }
     [Required]
     public string Username { get; set; }
     public string? Nickname { get; set; }
@@ -15,7 +17,7 @@ public class User
     [EmailAddress]
     public string Email { get; set; }
     public string? Phone { get; set; }
-    public string? Bank { get; set; }
+    public string? Iban { get; set; }
     [Required]
     [EnumDataType(typeof(UserLevel), ErrorMessage = "Invalid user level.")]
 
