@@ -1,5 +1,4 @@
 ﻿using kotkangrilli.Configurations;
-
 namespace kotkangrilli.Data;
 
 using Microsoft.EntityFrameworkCore;
